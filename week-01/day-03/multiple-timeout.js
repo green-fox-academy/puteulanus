@@ -1,6 +1,8 @@
 'use strict';
 
-setTimeout(()=>console.log('apple'), 0);
-setTimeout(()=>console.log('pear'), 1000);
-setTimeout(()=>console.log('melon'), 3000);
-setTimeout(()=>console.log('grapes'), 5000);
+const time = (name,time) => setTimeout(()=>console.log(name),time)
+
+time('apple',0);
+time('pear',1000);
+time('melon',3000);
+time('grapes',5000);
