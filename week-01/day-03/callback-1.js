@@ -4,9 +4,10 @@ const mapWith = (array, callback) => {
 
   let output = [];
 
-  array.forEach(
-      x=>output.push(callback(x))
-  );
+
+  for (let entity of array) {
+    output.push(callback(entity));
+  }
 
   return output;
 
