@@ -6,11 +6,11 @@ const Flower = require('./flower');
 
 let garden = new Gargen();
 
-garden.addFlower(new Flower('yellow'))
-    .addFlower(new Flower('blue'));
+garden.add(new Flower('yellow'))
+    .add(new Flower('blue'));
 
-garden.addTree(new Tree('purple'))
-    .addTree(new Tree('orange'));
+garden.add(new Tree('purple'))
+    .add(new Tree('orange'));
 
 garden.show();
 

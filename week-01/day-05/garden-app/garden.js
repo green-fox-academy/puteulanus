@@ -5,40 +5,26 @@ const Flower = require('./flower');
 
 class Garden {
     constructor() {
-        this.trees = []
-        this.flowers = []
+        this.plants = [];
     }
 
-    addTree(tree) {
-        this.trees.push(tree);
-        return this;
-    }
-
-    addFlower(flower) {
-        this.flowers.push(flower);
+    add(plant) {
+        this.plants.push(plant);
         return this;
     }
 
     watering(waterNum) {
         console.log(`Watering with ${waterNum}`)
-        this.trees.filter(
-            tree => tree.isThirst
+        this.plants.filter(
+            plant => plant.isThirst
         ).forEach(
-            (tree,_,arr) => tree.watering(waterNum / arr.length)
-        );
-        this.flowers.filter(
-            flower => flower.isThirst
-        ).forEach(
-            (flower,_,arr) => flower.watering(waterNum / arr.length)
+            (plant,_,arr) => plant.watering(waterNum / arr.length)
         );
     }
 
     show() {
-        this.flowers.forEach(
-            flower => console.log(`The ${flower.color} Flower ${flower.isThirst ? 'needs' : 'doesnt need'} water`)
-        );
-        this.trees.forEach(
-            tree => console.log(`The ${tree.color} Tree ${tree.isThirst ? 'needs' : 'doesnt need'} water`)
+        this.plants.forEach(
+            plant => console.log(`The ${plant.color} ${plant.constructor.name} ${plant.isThirst ? 'needs' : 'doesnt need'} water`)
         );
     }
 }
