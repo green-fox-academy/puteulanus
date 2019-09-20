@@ -18,20 +18,26 @@ const dominoes = initializeDominoes();
 /** Order them into one snake where the adjacent dominoes have the same numbers on their adjacent sides */
 /** eg: [2, 4], [4, 3], [3, 5] ... */
 
-function sort_dominoes(sorted_part, dominoes) {
-    let tmp = [dominoes[0]]
-    dominoes.shift();
-    let ls = dominoes.map(x=>x.values[0])
-    let rs = dominoes.map(x=>x.values[1])
-    while(rs.indexOf(tmp[tmp.length-1].values[1]) !== -1) {
-        //
+function sort_dominoes(dominoes) {
+
+    let ds = dominoes.map(x=>x.values);
+    let d1 = ds[0];
+    ds.shift();
+    let questions = [ [ d1, ds ] ]
+    // loop start
+    let q = questions[0];
+    let p1 = q[0];
+    let p2 = q[1];
+    for (let dm of p2) {
+        if (dm[0] === p1[p1.length-1][1]){
+            
+        }
     }
-    while(ls.indexOf(tmp[0].values[0]) !== -1) {
-        //
-    }
-    return false;
+
+
+
 }
 
-dominoes = sort_dominoes([],dominoes);
+sort_dominoes(dominoes);
 
 console.log(dominoes.toString());
