@@ -4,7 +4,7 @@ import Stack = require('./iStack');
 
 class Node implements LinkedList, Stack {
 
-    public first: {
+    private first: {
         index: number,
         value: string,
         next?: any

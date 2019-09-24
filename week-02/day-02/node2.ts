@@ -4,7 +4,7 @@ import Queue = require('./iQueue');
 
 class Node implements LinkedList, Queue {
 
-    public first: {
+    private first: {
         index: number,
         value: string,
         next?: any
