@@ -1,8 +1,8 @@
 import LinkedList = require('./iLinkedList');
-import Queue = require('./iQueue');
+import Stack = require('./iStack');
 
 
-class Node implements LinkedList, Queue {
+class Node implements LinkedList, Stack {
 
     private first: {
         index: number,
@@ -83,17 +83,7 @@ class Node implements LinkedList, Queue {
         )
     }
 
-    remove(index?: number): string {
-
-        if (index === undefined) {
-            if (this.first === undefined) {
-                return undefined;
-            } else {
-                let text = this.first['value'];
-                this.first = this.first['next'];
-                return text;
-            }
-        }
+    remove(index: number): string {
 
         if (this.first['index'] === index) {
             let text = this.first['value'];
@@ -127,5 +117,27 @@ class Node implements LinkedList, Queue {
     }
     peek(): string {
         return this.empty() ? undefined : this.first['value'];
+    }
+    push(value: string): void {
+        if (this.first === undefined) {
+            this.first = {
+                index: 1,
+                value: value
+            }
+        } else {
+            this.first = {
+                index: this.first['index'] - 1,
+                value: value,
+                next: this.first
+            }
+        }
+    }
+    pop(): string {
+        if (this.first === undefined) {
+            return undefined;
+        }
+        let text = this.first['value'];
+        this.first = this.first['next'];
+        return text;
     }
 }

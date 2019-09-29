@@ -1,12 +1,14 @@
 import LinkedList = require('./iLinkedList');
+import Queue = require('./iQueue');
 
-class Node implements LinkedList {
+
+class Node implements LinkedList, Queue {
 
     private first: {
         index: number,
         value: string,
         next?: any
-    };
+    }
 
     private size_num: number = 0;
 
@@ -20,9 +22,6 @@ class Node implements LinkedList {
 
     add(value: string, index?: number): void {
         if (this.first === undefined) {
-
-            index = index === undefined ? 0 : index;
-
             this.first = {index: index, value: value};
             this.size_num++;
         } else {
@@ -41,7 +40,7 @@ class Node implements LinkedList {
                 node => {
                     let t_next = node['next'];
                     if (node['next'] === undefined || node['next']['index'] !== index) {
-                        node['next'] = {index: index === undefined ? node['index'] + 1 : index,
+                        node['next'] = {index: index,
                                         value: value,
                                         next: t_next};
                         this.size_num++;
@@ -84,7 +83,17 @@ class Node implements LinkedList {
         )
     }
 
-    remove(index: number): string {
+    remove(index?: number): string {
+
+        if (index === undefined) {
+            if (this.first === undefined) {
+                return undefined;
+            } else {
+                let text = this.first['value'];
+                this.first = this.first['next'];
+                return text;
+            }
+        }
 
         if (this.first['index'] === index) {
             let text = this.first['value'];
@@ -112,6 +121,11 @@ class Node implements LinkedList {
     size(): number {
         return this.size_num;
     }
-}
 
-export = Node;
+    empty(): boolean {
+        return this.first === undefined;
+    }
+    peek(): string {
+        return this.empty() ? undefined : this.first['value'];
+    }
+}
