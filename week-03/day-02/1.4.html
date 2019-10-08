@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .item {
+            flex-grow: 1;
+        }
+        .green {
+            background-color: lawngreen;
+            order: -1;
+        }
+        .yellow {
+            background-color: gold;
+            flex-grow: 2;
+            order: 1;
+        }
+        .purple {
+            background-color: blueviolet;
+        }
+        .container {
+            display: flex;
+            height: 190px;
+            width: 500px;
+            flex-direction: column;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="item green"></div>
+    <div class="item yellow"></div>
+    <div class="item purple"></div>
+</div>
+</body>
+</html>
