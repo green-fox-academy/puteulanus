@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Workshop: ClassList</title>
+    <style>
+        .red {
+            color: red;
+        }
+        .balloon {
+            background-color: lime;
+            border-radius: 100%;
+        }
+        .pear {
+            background: lime;
+            padding: 2rem;
+            text-decoration: uppercase;
+        }
+    </style>
+</head>
+<body>
+<p class="apple">apple</p>
+<p class="balloon">balloon</p>
+<p class="cat red-dot">cat</p>
+<p>dolphin</p>
+
+<script>
+    if(document.querySelector('p:nth-of-type(4)').classList.contains('dolphin')) {
+        document.querySelector('.apple')[0].innerText = 'pear';
+    }
+
+    if(document.getElementsByTagName('p')[0].classList.contains('apple')) {
+        document.getElementsByClassName('cat')[0].innerText = 'dog';
+    }
+
+    document.getElementsByClassName('apple')[0].classList.add('red');
+    document.getElementsByTagName('head')[0].innerHTML += `
+    <style>
+    .red {
+    background-color: red;
+    }
+    </style>
+    `;
+
+    document.getElementsByClassName('balloon')[0].style.width = '50px';
+</script>
+
+<!-- You can work in the html or in a separate js file. Like:
+<script>
+
+  If the fourth p has a 'dolphin' class, replace apple's content with 'pear'
+
+  If the first p has an 'apple' class, replace cat's content with 'dog'
+
+  Make apple red by adding a .red class
+
+  Make balloon less balloon-like (change its shape)
+
+</script>
+
+OR
+
+<script src="classlist-1.js"></script> -->
+</body>
+</html>
