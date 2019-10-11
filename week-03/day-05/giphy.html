@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .img{
+            width: 10%;
+            margin: 1%;
+        }
+        img {
+            border-radius: 2px;
+        }
+        #viewdiv, #loadding {
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            position: fixed;
+            left: 0;
+            top: 0;
+        }
+        #loadding {
+            background-color: white;
+        }
+        .hide {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<!--view window-->
+<div id="viewdiv" class="hide">
+    <img id="viewimg" src="" alt="">
+    <button onclick="viewdiv.classList.toggle('hide')">x</button>
+</div>
+
+<!--loadding img-->
+<div id="loadding" class="hide">
+    <img src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" alt="">
+</div>
+
+<!--search space-->
+<input id="searchBar">
+<button id="searchButton">search</button>
+<div id="imgs"></div>
+
+<script>
+    const api_key = '7OZl31SsnqrlBXPvzSlP8MeZT6y6O5GA';
+
+    searchButton.addEventListener('click', search);
+    imgs.addEventListener('click', view);
+
+
+    function search() {
+        // clean search result
+        document.querySelectorAll('.img').forEach(img => img.remove());
+        // show loadding
+        loadding.classList.toggle('hide');
+        let keyword = searchBar.value;
+        search_gif(keyword, function () {
+            if (this.readyState === 4 && this.status === 200) {
+                let search_result = JSON.parse(this.response);
+                loadding.classList.toggle('hide');
+                search_result.data.forEach(
+                    (image) => {
+                        create_img(image.images['fixed_height_still']['url'],
+                            image.images['original']['url']);
+                    }
+                );
+            }
+        });
+    }
+
+    function create_img(thumb_url, origin_url) {
+        let img = document.createElement('img');
+        img.src = thumb_url;
+        img.classList.add('img');
+        img.setAttribute('origin', origin_url);
+        imgs.appendChild(img);
+    }
+
+    function search_gif(keyword, func) {
+        let url = new URL('https://api.giphy.com/v1/gifs/search');
+        url.searchParams.set('api_key', api_key);
+        url.searchParams.set('q', keyword);
+        url.searchParams.set('limit', '16');
+
+        let req = new XMLHttpRequest();
+        req.addEventListener('readystatechange', func);
+        req.open('GET', url, true);
+        req.send();
+    }
+
+    function view(evt) {
+        viewimg.src = evt.target.getAttribute('origin');
+        viewdiv.classList.toggle('hide')
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .link {
+            margin-left: 10px;
+        }
+        .article {
+            border: 2px black solid;
+            margin: 10px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .snippet {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+<input id="searchBar" value="moon landing Apollo 11" type="text">
+<button id="searchButton">search</button>
+
+<div id="arts"></div>
+
+
+<script>
+    const api_key = 'JsjLuU8JFGOTAA12MlrCRIJj1XuJQP43';
+
+    searchButton.addEventListener('click', () => {
+        search_article(searchBar.value, create_article);
+    });
+
+    function create_article() {
+        if (this.readyState !== 4 || this.status !== 200) {return;}
+        let arts = JSON.parse(this.response).response.docs;
+        arts.forEach(
+            ({headline, snippet, pub_date, web_url}) => {
+                insert_article(headline.main, snippet, pub_date, web_url);
+            }
+        );
+    }
+
+    function insert_article(headline, snippet, publication, url) {
+        let headline_node = create_node('h3', headline, 'headline');
+        let snippet_node = create_node('p', snippet, 'snippet');
+        publication = publication.replace('T', ' ').replace('+0000', ' ');
+        let publication_node = create_node('span', publication, 'pubdate');
+        let link_node = create_node('a','See on Times', 'link');
+        link_node.href = url;
+
+        let art_div = create_node('div', '', 'article');
+        art_div.appendChild(headline_node);
+        art_div.appendChild(snippet_node);
+        art_div.appendChild(publication_node);
+        art_div.appendChild(link_node);
+        arts.appendChild(art_div);
+    }
+
+    function create_node(node_type, text, class_name) {
+        let node = document.createElement(node_type);
+        node.innerText = text;
+        node.classList.add(class_name);
+        return node;
+    }
+
+    function search_article(keyword, func) {
+        let url = new URL('https://api.nytimes.com/svc/search/v2/articlesearch.json');
+        url.searchParams.set('api-key', api_key);
+        url.searchParams.set('q', keyword);
+        let req = new XMLHttpRequest();
+        req.onreadystatechange = func;
+        req.open('GET', url, true);
+        req.send();
+    }
+
+
+</script>
+
+</body>
+</html>
