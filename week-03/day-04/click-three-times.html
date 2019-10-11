@@ -16,12 +16,16 @@
                 clickedTime: 0,
                 handleEvent(evt) {
                     this.clickedTime++;
-                    result.innerText = this.clickedTime >= 3 ? '5 seconds elapsed and clicked 3 times' : '';
+                    if (this.clickedTime === 3) {
+                        result.innerText = '5 seconds elapsed and clicked 3 times';
+                        btn.removeEventListener('click', this);
+                    }
                 }
             })
         }, 5000);
         btn.onclick = function () {
             clearTimeout(id);
+            btn.onclick = null;
         }
     }
 
