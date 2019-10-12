@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<button id="btn">cancel</button>
+<script>
+    // let id = 0;
+    // window.onload = () => {
+    //     id = setTimeout(() => {
+    //         alert('5 second passed');
+    //     }, 5000);
+    // };
+    // btn.onclick = function () {
+    //     clearTimeout(id);
+    // }
+
+    window.onload = () => {
+        (new Promise((r) => {
+            r(setTimeout(() => {alert('5 second passed')}, 5000));
+        })).then(id => btn.onclick = () => {
+            clearTimeout(id);
+        });
+    };
+
+
+</script>
+</body>
+</html>

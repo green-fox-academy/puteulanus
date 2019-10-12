@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1 id="h1"></h1>
+<button id="btn">pour</button>
+<script>
+
+    itor = pour();
+    btn.onclick = () => {
+        h1.innerText = itor.next().value;
+    };
+
+    function* pour() {
+        const names = ['Esther','Eulalia','Harriet'];
+        while(names.length > 0) {
+            yield names.shift();
+        }
+    }
+</script>
+</body>
+</html>
