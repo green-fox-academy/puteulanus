@@ -5,14 +5,81 @@
     <title>Title</title>
 </head>
 <body>
-<label id="label"></label>
-<input type="text" id="search">
-<button id="btn">search</button>
-<ul id="people"></ul>
-<ul id="movies"></ul>
+<label></label>
+<input id="searchInput" type="text">
+<button id="searchButton">search</button>
+<div id="listContainer">
+    <ul id="peopleList"></ul>
+    <ul id="movieList"></ul>
+</div>
 
 
 <script>
+
+    searchButton.addEventListener('click', () => {
+        createPeopleList(searchInput.value);
+    });
+
+    peopleList.addEventListener('click', (evt) => {
+        createMovieList(evt.target.films);
+    });
+
+    function createMovieList(films) {
+        let res = Promise.all(films.map(makeFilmLoadPromise));
+        res.then(movies => {
+            movieList.innerHTML = '';
+            movies.forEach(insertMovie);
+        });
+    }
+
+    function makeFilmLoadPromise(filmURL) {
+        return new Promise((resolve) => {
+            let req = new XMLHttpRequest();
+            req.open('GET', filmURL);
+            req.onreadystatechange = function () {
+                if(this.readyState !== 4 || this.status !== 200) {return}
+                resolve(JSON.parse(this.response))
+            };
+            req.send();
+        });
+    }
+
+    function insertMovie(movie) {
+        let {title, release_date} = movie;
+        let movieNode = createNode('li', `${title}(${release_date})`, 'movieLi');
+        movieList.appendChild(movieNode);
+    }
+
+    function createPeopleList(keyword) {
+        let url = new URL('https://swapi.co/api/people/');
+        url.searchParams.set('search', keyword);
+
+        let req = new XMLHttpRequest();
+        req.onreadystatechange = function() {
+            if (this.readyState !== 4 || this.status !== 200) {return}
+            peopleList.innerHTML = '';
+            movieList.innerHTML = '';
+            let people = JSON.parse(this.response);
+            people.results.forEach(insertPerson);
+        };
+        req.open('GET', url, true);
+        req.send();
+    }
+
+    function insertPerson(person) {
+        let {name, films} = person;
+        let personNode = createNode('li', name, 'personLi');
+        personNode['films'] = films;
+        peopleList.appendChild(personNode);
+    }
+
+    function createNode(nodeType, innerText, className) {
+        let node = document.createElement(nodeType);
+        node.innerText = innerText;
+        node.classList.add(className);
+        return node;
+    }
+
 
 
 </script>
