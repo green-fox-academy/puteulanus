@@ -17,16 +17,19 @@ function myReducer(state = initState, action) {
                 counter: action.num,
             };
         case 'Add_Tag':
+            let tmp = [...state.tags];
             if (state.tags.indexOf(action.name) === -1) {
-                state.tags.push(action.name);
+                tmp.push(action.name);
             }
-            return state;
+            return {
+                ...state,
+                tags: tmp
+            };
         case 'Remove_Tag':
-            let index = state.tags.indexOf(action.name);
-            if (index) {
-                state.tags.splice(index,1);
-            }
-            return state;
+            return {
+                ...state,
+                tags: [...state.tags].filter(tag => tag !== action.name)
+            };
         case 'Clean_Tag':
             return {
                 ...state,
