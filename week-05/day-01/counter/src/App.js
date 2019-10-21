@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import './App.css';
-import Counter from "./counter";
+import Counter from "./Counter";
+import Tags from "./Tags";
 
 class App extends Component {
 
@@ -8,6 +9,7 @@ class App extends Component {
         return (
             <div className="App">
                 <Counter />
+                <Tags />
             </div>
         );
     }

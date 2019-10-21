@@ -16,6 +16,22 @@ function myReducer(state = initState, action) {
                 ...state,
                 counter: action.num,
             };
+        case 'Add_Tag':
+            if (state.tags.indexOf(action.name) === -1) {
+                state.tags.push(action.name);
+            }
+            return state;
+        case 'Remove_Tag':
+            let index = state.tags.indexOf(action.name);
+            if (index) {
+                state.tags.splice(index,1);
+            }
+            return state;
+        case 'Clean_Tag':
+            return {
+                ...state,
+                tags: []
+            };
         default:
             return state;
     }
