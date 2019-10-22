@@ -16,8 +16,8 @@ class Tags extends Component {
 
                 <div>
                     <p>Tags List</p>
-                    {this.props.tags.map(tag => {
-                        return <div>{tag}</div>
+                    {this.props.tags.map((tag, index) => {
+                        return <p key={index}><div>{tag}</div></p>
                     })}
                 </div>
 
@@ -25,6 +25,20 @@ class Tags extends Component {
                     <p>Add tag</p>
                     <input onChange={(evt) => {this.setState({addTagName: evt.target.value})}} />
                     <button onClick={() => {this.props.addTag(this.state.addTagName)}}>add</button>
+                </div>
+
+                <div>
+                    <p>Remove tag</p>
+                    <div onClick={(evt) => this.props.removeTag(evt.target.dataset.tag)}>
+                    {this.props.tags.map(tag => {
+                        return <p key={tag}><button data-tag={tag}>{tag}</button></p>
+                    })}
+                    </div>
+                </div>
+
+                <div>
+                    <p>Clean tags</p>
+                    <button onClick={() => this.props.cleanTag()}>clean</button>
                 </div>
 
             </div>
