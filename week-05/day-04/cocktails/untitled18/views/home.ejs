@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <title></title>
+    <link rel="stylesheet" href="/main.css">
+</head>
+<body>
+<h1>Cocktails</h1>
+<div class="nav">
+<a href="/">all</a>
+<%-
+alcoholList.map(item => `<a href="/?alcohol=${item}">${item}</a>`).join("\n")
+%>
+</div>
+<table>
+    <tr>
+        <th>NAME</th>
+        <th>PRICE</th>
+    </tr>
+    <%-
+    cocktails.filter(item => alcoholType === 'all' || item.contains.indexOf(alcoholType) !== -1).map(item => [
+        '<tr>',
+            '<td>',
+                '<p class="name">', item.name, '<span class="alcoholic">', item.isAlcoholic ? '' : '(non-alcoholic)', '</span>', '</p>',
+                '<p class="contains">', item.contains.join(', '), '</p>',
+            '</td>',
+            '<td>', '<div class="price">', `${item.price} Ft`, '</div>', '</td>',
+        '</tr>'
+    ].join("")).join("");
+    %>
+</table>
+</body>
+</html>
