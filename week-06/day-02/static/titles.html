@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<script>
+    (async ()=>{
+        let res = await fetch('/books/titles');
+        let titles = await res.json();
+       titles.forEach((title) => {
+            let h1 = document.createElement('h1');
+            h1.innerText = title;
+            document.querySelector('body').appendChild(h1);
+        });
+    })();
+</script>
+</body>
+</html>

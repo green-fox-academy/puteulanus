@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Books</title>
+</head>
+<body>
+
+<table>
+    <tr>
+        <th>title</th>
+        <th>author name</th>
+        <th>category</th>
+        <th>publisher name</th>
+        <th>price</th>
+    </tr>
+
+</table>
+
+<script>
+
+    function makeTd(name) {
+        let td = document.createElement('td');
+        td.innerText = name;
+        return td;
+    }
+
+    function makeBook(title, aut_name, category, pub_name, price) {
+        let tr = document.createElement('tr');
+        tr.appendChild(makeTd(title));
+        tr.appendChild(makeTd(aut_name));
+        tr.appendChild(makeTd(category));
+        tr.appendChild(makeTd(pub_name));
+        tr.appendChild(makeTd(price));
+        return tr;
+    }
+
+    (async ()=>{
+        let res = await fetch('/books');
+        let books = await res.json();
+        books.forEach((book) => {
+            let {title, author, category, publisher, price} = book;
+            let tr = makeBook(title, author, category, publisher, price);
+            document.querySelector('table').appendChild(tr);
+        });
+    })();
+</script>
+</body>
+</html>
